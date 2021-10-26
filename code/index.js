@@ -1986,9 +1986,23 @@ function subjectLearningPage(chosenLesson) {
     document.querySelector(".page.learning.content .container-subjects").append(beforeSpace);
 
 
+    let arrLessonSubjects =  Object.keys(DATA[chosenSubject].lessons[chosenLesson].learningContent);
+    let i = 0;
+    for (let x of arrLessonSubjects) {
+        if (!IsStringStartsWithHebrew(x)) {
+            arrLessonSubjects[i] = x.substring(1);
+        }
+        i++;
+    }
+    console.log(arrLessonSubjects);
+
+    function IsStringStartsWithHebrew(str) {
+        return (/[\u0590-\u05FF]/).test( str.charAt(0));
+    }
+
     let id = 0;
     // לכל תת נושא 
-    for (let sub of Object.keys(DATA[chosenSubject].lessons[chosenLesson].learningContent)) {
+    for (let sub of arrLessonSubjects) {
         // זה משתנה שמכיל את כל תתי תתי הנושאים לאותו תת נושא 
         let subSubTopics = Object.keys(DATA[chosenSubject].lessons[chosenLesson].learningContent[sub]);
 
