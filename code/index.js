@@ -1986,7 +1986,7 @@ function subjectLearningPage(chosenLesson) {
     document.querySelector(".page.learning.content .container-subjects").append(beforeSpace);
 
 
-    let arrLessonSubjects =  Object.keys(DATA[chosenSubject].lessons[chosenLesson].learningContent);
+    // let arrLessonSubjects =  Object.keys(DATA[chosenSubject].lessons[chosenLesson].learningContent);
     let arrLessons = Object.keys(DATA[chosenSubject].lessons);
     // let arrLessons = ["◄שיעור"];
     console.log(arrLessons);
@@ -1999,6 +1999,12 @@ function subjectLearningPage(chosenLesson) {
         i++;
     }
     console.log(arrLessons);
+    
+    if (!IsStringStartsWithHebrew(chosenLesson)) {
+        chosenLesson = chosenLesson.substring(1);
+    }
+
+    let arrLessonSubjects = Object.keys(arrLessons[chosenLesson].learningContent);
     // for (let x of arrLessonSubjects) {
     //     if (!IsStringStartsWithHebrew(x)) {
     //         arrLessonSubjects[i] = x.substring(1);
