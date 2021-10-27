@@ -1986,7 +1986,7 @@ function subjectLearningPage(chosenLesson) {
     document.querySelector(".page.learning.content .container-subjects").append(beforeSpace);
 
 
-    // let arrLessonSubjects =  Object.keys(DATA[chosenSubject].lessons[chosenLesson].learningContent);
+    let arrLessonSubjects =  Object.keys(DATA[chosenSubject].lessons[chosenLesson].learningContent);
     let arrLessons = Object.keys(DATA[chosenSubject].lessons);
     // let arrLessons = ["◄שיעור"];
     console.log(arrLessons);
