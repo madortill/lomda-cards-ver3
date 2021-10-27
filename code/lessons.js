@@ -58,7 +58,7 @@ function createLessonsCards(lesson) {
         );
     document.querySelector(".page.learning.lessons .cards-container").append(lessonCard);
     lessonCard.addEventListener("click", (event) => {
-        let chosenLesson = event.currentTarget.innerText;
+        let chosenLesson = event.currentTarget.innerHTML;
         console.log(event.currentTarget.innerText);
         document.querySelector(".page.learning.lessons").classList.remove("active");
         document.querySelector(".page.learning.content").classList.add("active");
