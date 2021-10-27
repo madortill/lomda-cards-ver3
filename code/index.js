@@ -1986,15 +1986,26 @@ function subjectLearningPage(chosenLesson) {
     document.querySelector(".page.learning.content .container-subjects").append(beforeSpace);
 
 
-    let arrLessonSubjects =  Object.keys(DATA[chosenSubject].lessons[chosenLesson].learningContent);
+    // let arrLessonSubjects =  Object.keys(DATA[chosenSubject].lessons[chosenLesson].learningContent);
+    let arrLessons = Object.keys(DATA[chosenSubject].lessons);
+    // let arrLessons = ["◄שיעור"];
+    console.log(arrLessons);
+
     let i = 0;
-    for (let x of arrLessonSubjects) {
+    for (let x of arrLessons) {
         if (!IsStringStartsWithHebrew(x)) {
-            arrLessonSubjects[i] = x.substring(1);
+            arrLessons[i] = x.substring(1);
         }
         i++;
     }
-    console.log(arrLessonSubjects);
+    console.log(arrLessons);
+    // for (let x of arrLessonSubjects) {
+    //     if (!IsStringStartsWithHebrew(x)) {
+    //         arrLessonSubjects[i] = x.substring(1);
+    //     }
+    //     i++;
+    // }
+    // console.log(arrLessonSubjects);
 
     function IsStringStartsWithHebrew(str) {
         return (/[\u0590-\u05FF]/).test( str.charAt(0));
