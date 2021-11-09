@@ -364,11 +364,13 @@ function questionsToPractice() {
     for (let subject of subjects) {
         let subjectData = DATA[subject];
         // מספר השאלות לנושא
-        let subjectQuestions = subjectData.questionsPractice.length;
+        let subjectQuestions = subjectData.questions.length;
+        // let subjectQuestions = subjectData.questionsPractice.length;
         // בוחר את מספר השאלות
         let questionCount = Math.min(subjectQuestions, Math.max(Math.floor(maxQuestionAmountForTopic), 1));
         // מסדר באופן רנדומלי את השאלות ממערך הנתונים
-        let shuffledQuestions = shuffle(subjectData.questionsPractice.slice());
+        let shuffledQuestions = shuffle(subjectData.questions.slice());
+        // let shuffledQuestions = shuffle(subjectData.questionsPractice.slice());
         // בוחר את האיקס שאלות הראשונות
         selectedQuestions.push(...shuffledQuestions.slice(0, questionCount));
         if (selectedQuestions.length === AMOUNT_OF_TOTAL_QUESTIONS) break;
@@ -515,6 +517,51 @@ function createMultipleCard(i = 2) {
             )
         );
     document.querySelector(".container-questions").append(card);
+    
+    // להוסיף תמונה במידה ויש
+    addImage();
+    
+    function addImage() {
+        if (QUESTIONS[currentQuestion + i].img !== undefined) {
+            let imgUrl = QUESTIONS[currentQuestion + i].img;
+            let img = El("img", { attributes: { class: "img-questions", src: imgUrl}, 
+            listeners: {
+                click: function () {
+                    document.querySelector(".container-full-img").style.display = "flex"; 
+                    document.getElementById("full-img").src = imgUrl; 
+                }
+            }});
+            
+            // בודק האם זו הפעם הראשונה שיש כרטיסייה
+            if(i === 0)
+            document.querySelector(".first-question .question").after(img);
+            // בודק האם זו הפעם השנייה שיש כרטיסייה
+            else if (i === 1)  
+            document.querySelector(".second-question .question").after(img);
+            // זו הפעם השלישית ומעלה שיש כרטיסיית שאלה
+            else
+                document.querySelector(".third-question .question").after(img);
+
+        }
+        
+        let fullImg = 
+        El("div", {attributes: { class: "container-full-img"},
+            listeners : {
+                click: function() {
+                    document.querySelector(".container-full-img").style.display= 'none';
+                }
+            } },
+            El("img", {attributes: { id: "full-img", class: "full-img"}, 
+                listeners : {
+                    click: function() {
+                        document.querySelector(".container-full-img").style.display= 'none';
+                    }
+                } 
+            })    
+        );
+        
+        document.querySelector(".page.practice").append(fullImg);
+    }
 }
 
 // יוצרת קלף של שאלות נכון לא נכון
@@ -1306,11 +1353,13 @@ function questionsToExam() {
     for (let subject of SUBJECTS_TITLES) {
         let subjectData = DATA[subject];
         // מספר השאלות לנושא
-        let subjectQuestions = subjectData.questionsExam.length;
+        let subjectQuestions = subjectData.questions.length;
+        // let subjectQuestions = subjectData.questionsExam.length;
         // בוחר את מספר השאלות
         let questionCount = Math.min(subjectQuestions, subjectData.amountOfQuestions);
         // מסדר באופן רנדומלי את השאלות ממערך הנתונים
-        let shuffledQuestions = shuffle(subjectData.questionsExam.slice());
+        let shuffledQuestions = shuffle(subjectData.questions.slice());
+        // let shuffledQuestions = shuffle(subjectData.questionsExam.slice());
         // בוחר את האיקס שאלות הראשונות
         selectedQuestions.push(...shuffledQuestions.slice(0, questionCount));
         if (selectedQuestions.length === AMOUNT_OF_TOTAL_QUESTIONS) break;
