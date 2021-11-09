@@ -224,9 +224,9 @@ function beforePractice() {
                     El("div", {},
                         El("img", { attributes: { class: "icon1", src: "../assets/images/practice/beforePractice_popup/slide_icon.svg" } }),
                         El("div", { cls: "text" },
-                            El("b", { cls: "italic" }, " הקליקו"),
+                            El("b", { cls: "" }, " להגדלת התמונה"),
                             El("br", {}),
-                            "למעבר"
+                            "לחצו עליה"
                         ),
                     ),
                     El("div", {},
@@ -1495,10 +1495,55 @@ function createQuestionExam() {
         buttons.classList.add("last");
     else
         buttons.classList.add(`num${currentQuestionExam + 1}`);
-
+       
     document.querySelector(".page.exam .empty-card").append(cardContent);
     document.querySelector(".page.exam .empty-card").append(buttons);
 
+    addImage();
+
+    function addImage() {
+        if (QUESTIONS[currentQuestionExam].img !== undefined) {
+            let imgUrl = QUESTIONS[currentQuestionExam].img;
+            let img = El("img", { attributes: { class: "img-questions", src: imgUrl}, 
+            listeners: {
+                click: function () {
+                    document.querySelector(".container-full-img").style.display = "flex"; 
+                    document.getElementById("full-img").src = imgUrl; 
+                }
+            }});
+            
+            // // בודק האם זו הפעם הראשונה שיש כרטיסייה
+            // if(i === 0)
+            // document.querySelector(".first-question .question").after(img);
+            // // בודק האם זו הפעם השנייה שיש כרטיסייה
+            // else if (i === 1)  
+            // document.querySelector(".second-question .question").after(img);
+            // // זו הפעם השלישית ומעלה שיש כרטיסיית שאלה
+            // else
+            //     document.querySelector(".third-question .question").after(img);
+            document.querySelector(".page.exam .empty-card .question").after(img);
+
+        }
+        
+        let fullImg = 
+        El("div", {attributes: { class: "container-full-img"},
+            listeners : {
+                click: function() {
+                    document.querySelector(".container-full-img").style.display= 'none';
+                }
+            } },
+            El("img", {attributes: { id: "full-img", class: "full-img"}, 
+                listeners : {
+                    click: function() {
+                        document.querySelector(".container-full-img").style.display= 'none';
+                    }
+                } 
+            })    
+        );
+        
+        document.querySelector(".page.exam").append(fullImg);
+    }
+ 
     // הופך את הכרטיסייה שמאחורה לכרטיסייה העליונה
     document.querySelector(".page.exam .empty-card").classList.add("first-card");
     document.querySelector(".page.exam .empty-card").style.transform = "unset";
@@ -1786,7 +1831,9 @@ function endExam(amountOfCorrectAnswers) {
     date = new Date();
     let todayDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
     let currTime = date.getHours() + ":" + date.getMinutes();
-    grade = amountOfCorrectAnswers / QUESTIONS.length * 100; 
+    grade = amountOfCorrectAnswers / QUESTIONS.length * 100;
+    if (grade % 1 !== 0) 
+        grade = grade.toFixed(2); 
 
     // האם כמות התשובות הנכונות גדולה מחצי מהשאלות
     if (amountOfCorrectAnswers > QUESTIONS.length / 2) 

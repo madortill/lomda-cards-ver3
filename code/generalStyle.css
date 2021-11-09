@@ -426,7 +426,7 @@ body {
 .page .beforePractice-instruction-container {
   display: flex;
   justify-content: space-between;
-  width: 69%;
+  width: 77%;
   margin: 6vw 0;
   box-sizing: border-box;
   align-items: flex-end;
@@ -437,6 +437,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-width: 2.5em;
 }
 
 .italic {
@@ -445,9 +446,10 @@ body {
 
 .img-questions {
   width: 70px;
+  max-height: 47px;
   position: absolute;
-  top: -49px;
-  left: 0;
+  top: -48px;
+  left: 94px;
   border-radius: 0.5em;
 }
 
